@@ -2,10 +2,15 @@ package com.mindtree.staffmanagement.util;
 
 import com.mindtree.staffmanagement.model.dto.MemberDto;
 import com.mindtree.staffmanagement.model.entity.Member;
+import com.mindtree.staffmanagement.util.exception.InvalidDtoException;
 
 public class DtoMapper {
 
-	public static Member DtoToEntity(MemberDto memberDto) {
+	public static Member dtoToEntity(MemberDto memberDto) throws InvalidDtoException {
+
+		if (memberDto == null) {
+			throw new InvalidDtoException("Invalid DtoSupplied");
+		}
 
 		Member member = new Member();
 
@@ -21,7 +26,11 @@ public class DtoMapper {
 
 	}
 
-	public static MemberDto EntityDtoTo(Member member) {
+	public static MemberDto entityToDto(Member member) throws InvalidDtoException {
+
+		if (member == null) {
+			throw new InvalidDtoException("Invalid DtoSupplied");
+		}
 
 		MemberDto memberDto = new MemberDto();
 

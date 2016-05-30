@@ -6,28 +6,28 @@ import com.mindtree.staffmanagement.model.entity.Competency;
 import com.mindtree.staffmanagement.model.entity.Gender;
 import com.mindtree.staffmanagement.model.entity.Role;
 
-@JsonPropertyOrder({ "ID", "MID", "NAME", "AGE", "GENDER", "COMPETENCY", "ROLE" })
+@JsonPropertyOrder({ "id", "mid", "name", "age", "gender", "competency", "role" })
 public class MemberDto {
 
-	@JsonProperty("ID")
+	@JsonProperty("id")
 	private long id;
 
-	@JsonProperty("MID")
+	@JsonProperty("mid")
 	private String mid;
 
-	@JsonProperty("NAME")
+	@JsonProperty("name")
 	private String name;
 
-	@JsonProperty("AGE")
+	@JsonProperty("age")
 	private int age;
 
-	@JsonProperty("GENDER")
+	@JsonProperty("gender")
 	private Gender gender;
 
-	@JsonProperty("COMPETENCY")
+	@JsonProperty("competency")
 	private Competency competency;
 
-	@JsonProperty("ROLE")
+	@JsonProperty("role")
 	private Role role;
 
 	public long getId() {

@@ -24,7 +24,7 @@ public class Member implements Serializable {
 	@GeneratedValue(generator = "member_seq", strategy = GenerationType.TABLE)
 	private long id;
 
-	@Column(name = "MID")
+	@Column(name = "MID",unique=true)
 	private String mid;
 
 	@Column(name = "NAME")
