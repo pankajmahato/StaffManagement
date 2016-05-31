@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.mindtree.staffmanagement.dao.interfaces.StaffDao;
 import com.mindtree.staffmanagement.dao.interfaces.exception.DaoException;
@@ -84,13 +85,12 @@ public class StaffDaoImpl implements StaffDao {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Member> find(String hqlQuery, String[] parameters, String[] values) throws DaoException {
 
 		List<Member> memberList = new ArrayList<>();
 		EntityManager entityManager = getEntityManagerFactory().createEntityManager();
-		Query query = entityManager.createQuery(hqlQuery, Member.class);
+		TypedQuery<Member> query = entityManager.createQuery(hqlQuery, Member.class);
 
 		if (entityManager != null) {
 			try {
@@ -194,7 +194,6 @@ public class StaffDaoImpl implements StaffDao {
 
 		EntityManager entityManager = getEntityManagerFactory().createEntityManager();
 
-		long id = 0;
 		Member memberNew = null;
 
 		if (entityManager != null) {
@@ -203,7 +202,7 @@ public class StaffDaoImpl implements StaffDao {
 
 				entityManager.getTransaction().begin();
 				memberNew = getMember(member.getMid());
-				id = memberNew.getId();
+				long id = memberNew.getId();
 				memberNew = member;
 				memberNew.setId(id);
 				entityManager.merge(memberNew);

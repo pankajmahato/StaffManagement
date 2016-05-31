@@ -1,4 +1,4 @@
-package com.mindtree.bugtracker.webapp.controller.exception;
+package com.mindtree.staffmanagement.webapp.controller.exception;
 
 public class EmptyResultSetException extends Exception {
 

@@ -75,6 +75,9 @@ public class ServiceImpl implements Service {
 		if (memberList != null) {
 
 			memberDtoList = new ArrayList<>();
+			/*-memberList.stream().forEach(member ->{
+				
+			});*/
 			for (Member m : memberList) {
 
 				try {

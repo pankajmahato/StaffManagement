@@ -6,8 +6,18 @@ import com.mindtree.staffmanagement.dao.interfaces.exception.DaoException;
 import com.mindtree.staffmanagement.model.entity.Member;
 import com.mindtree.staffmanagement.model.entity.Role;
 
+/**
+ * @author M1035984
+ *
+ */
 public interface StaffDao {
 
+	/**
+	 * 
+	 * @param member
+	 * @return
+	 * @throws DaoException
+	 */
 	Member addMember(Member member) throws DaoException;
 
 	void deleteMember(String mid) throws DaoException;

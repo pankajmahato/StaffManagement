@@ -1,4 +1,4 @@
-package com.mindtree.bugtracker.webapp.controller;
+package com.mindtree.staffmanagement.webapp.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,17 +12,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.mindtree.bugtracker.webapp.controller.exception.EmptyResultSetException;
 import com.mindtree.staffmanagement.model.dto.ErrorDto;
 import com.mindtree.staffmanagement.model.dto.MemberDto;
 import com.mindtree.staffmanagement.model.entity.Role;
@@ -30,8 +29,10 @@ import com.mindtree.staffmanagement.service.impl.ServiceImpl;
 import com.mindtree.staffmanagement.service.interfaces.Service;
 import com.mindtree.staffmanagement.service.interfaces.exception.ServiceException;
 import com.mindtree.staffmanagement.util.json.JsonUtil;
+import com.mindtree.staffmanagement.webapp.controller.exception.EmptyResultSetException;
 
 @Controller
+@ControllerAdvice
 public class FrontController {
 
 	Service service = new ServiceImpl();
@@ -130,7 +131,7 @@ public class FrontController {
 	}
 
 	@ExceptionHandler(NoHandlerFoundException.class)
-	public ResponseEntity<ErrorDto> rulesForNoHandlerFound(HttpServletRequest req,
+	public ResponseEntity<ErrorDto> handleNoHandlerFoundException(HttpServletRequest req,
 			NoHandlerFoundException noHandlerFoundException) {
 		ErrorDto error = new ErrorDto();
 		error.setError("Invalid URL provided");
@@ -138,10 +139,20 @@ public class FrontController {
 	}
 
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public ResponseEntity<String> rulesForHttpRequestMethodNotSupported(HttpServletRequest req,
-			NoHandlerFoundException noHandlerFoundException) {
+	public ResponseEntity<ErrorDto> handleHttpRequestMethodNotSupported(HttpServletRequest req,
+			HttpRequestMethodNotSupportedException httpRequestMethodNotSupportedException) {
 		ErrorDto error = new ErrorDto();
 		error.setError("Invalid HTTP Method");
-		return new ResponseEntity<String>(JsonUtil.serialize(error), HttpStatus.METHOD_NOT_ALLOWED);
+		return new ResponseEntity<ErrorDto>(error, HttpStatus.METHOD_NOT_ALLOWED);
 	}
+
+	/*-@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ErrorDto handleHttpRequestMethodNotSupportedException(HttpServletRequest req, HttpRequestMethodNotSupportedException ex) {
+		ErrorDto error = new ErrorDto();
+		error.setError("Invalid HTTP Method");
+		return error;
+	}*/
+
 }
